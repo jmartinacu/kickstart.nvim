@@ -792,7 +792,7 @@ require('lazy').setup({
       formatters_by_ft = {
         -- You can use 'stop_after_first' to run the first available formatter from the list
         lua = { 'stylua' },
-        python = { 'ruff_format', 'ruff_fix', 'ruff_organize_imports' },
+        python = { 'ruff' },
         javascript = { 'prettier' },
         typescript = { 'prettier' },
       },
