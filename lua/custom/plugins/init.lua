@@ -5,4 +5,8 @@
 
 ---@module 'lazy'
 ---@type LazySpec
-return {}
+return {
+  'github/copilot.vim',
+
+  { 'akinsho/git-conflict.nvim', version = '*', config = true },
+}
