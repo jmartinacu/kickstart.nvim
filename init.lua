@@ -699,7 +699,7 @@ do
   ---@type table<string, vim.lsp.Config>
   local servers = {
     -- clangd = {},
-    -- gopls = {},
+    gopls = {},
     pyright = {
       settings = {
         python = {
@@ -783,7 +783,10 @@ do
   --    :Mason
   --
   -- You can press `g?` for help in this menu.
-  local ensure_installed = vim.tbl_keys(servers or {})
+  -- NOTE: gopls is deliberately NOT installed via Mason: the mise `go` shim
+  -- forces GOBIN to mise's own bin dir, so Mason's go-based installers always
+  -- fail to link. gopls, goimports and dlv are managed by mise instead.
+  local ensure_installed = vim.tbl_filter(function(name) return name ~= 'gopls' end, vim.tbl_keys(servers or {}))
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
   })
@@ -826,6 +829,7 @@ do
       python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
       javascript = { 'prettier' },
       typescript = { 'prettier' },
+      go = { 'goimports', 'gofmt' },
     },
   }
 
@@ -929,6 +933,7 @@ do
 
   -- Ensure basic parsers are installed
   local parsers = {
+    'go',
     'yaml',
     'xml',
     'typescript',
