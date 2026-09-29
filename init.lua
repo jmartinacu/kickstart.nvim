@@ -523,6 +523,19 @@ do
   vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
   vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
   vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+  -- Variants that also search files ignored by .gitignore (e.g. Doodba's odoo/custom/src/* repos)
+  vim.keymap.set(
+    'n',
+    '<leader>sG',
+    function() builtin.live_grep { additional_args = { '--no-ignore-vcs' }, prompt_title = 'Live Grep (incl. git-ignored)' } end,
+    { desc = '[S]earch by [G]rep incl. git-ignored' }
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>sF',
+    function() builtin.find_files { no_ignore = true, prompt_title = 'Find Files (incl. ignored)' } end,
+    { desc = '[S]earch [F]iles incl. ignored' }
+  )
   vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
   vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
   vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
